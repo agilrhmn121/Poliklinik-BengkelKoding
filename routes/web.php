@@ -1,18 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AdminPoliController;
+use App\Http\Controllers\Admin\DokterController;
+use App\Http\Controllers\Admin\PasienController;
+use App\Http\Controllers\Admin\ObatController;
+use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -35,15 +29,25 @@ Route::middleware('auth')->group(function () {
         });
     })->name('dashboard');
 
-    Route::get('/admin/dashboard', function () {
-        abort_unless(auth()->user()->role === 'admin', 403);
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::middleware('role:admin')->prefix('admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+        Route::resource('polis', AdminPoliController::class)->except(['show']);
+        Route::resource('dokter', DokterController::class)->except(['show']);
+        Route::resource('pasien', PasienController::class)->except(['show']);
+        Route::resource('obat', ObatController::class)->except(['show']);
+    });
 
     Route::get('/dokter/dashboard', function () {
         abort_unless(auth()->user()->role === 'dokter', 403);
         return view('dokter.dashboard');
     })->name('dokter.dashboard');
+
+    Route::middleware('role:dokter')->prefix('dokter')->group(function () {
+        Route::resource('jadwal-periksa', JadwalPeriksaController::class)->except(['show']);
+    });
 
     Route::get('/pasien/dashboard', function () {
         abort_unless(auth()->user()->role === 'pasien', 403);

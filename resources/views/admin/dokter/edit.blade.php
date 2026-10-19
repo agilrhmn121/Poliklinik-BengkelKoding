@@ -1,0 +1,3 @@
+<x-layout.app title="Edit Dokter">
+    <div class="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><h1 class="text-2xl font-bold text-slate-900">Edit Dokter</h1><form method="POST" action="{{ route('dokter.update', $dokter) }}" class="mt-6 space-y-5">@csrf @method('PUT') @include('admin.dokter._form')<div class="flex gap-3"><a href="{{ route('dokter.index') }}" class="rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-600">Batal</a><button class="rounded-xl bg-indigo-700 px-4 py-3 text-sm font-semibold text-white">Simpan Perubahan</button></div></form></div>
+</x-layout.app>

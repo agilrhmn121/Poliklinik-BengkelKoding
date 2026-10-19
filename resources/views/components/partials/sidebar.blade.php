@@ -43,6 +43,30 @@
                     <i class="fas fa-gauge-high w-4 text-center"></i>
                     Dashboard Admin
                 </a>
+                @if(Route::has('polis.index'))
+                    <a href="{{ route('polis.index') }}" class="{{ $baseLink }} {{ request()->routeIs('polis.*') ? $active : $inactive }}">
+                        <i class="fas fa-hospital w-4 text-center"></i>
+                        Manajemen Poli
+                    </a>
+                @endif
+                @if(Route::has('dokter.index'))
+                    <a href="{{ route('dokter.index') }}" class="{{ $baseLink }} {{ request()->routeIs('dokter.*') ? $active : $inactive }}">
+                        <i class="fas fa-user-doctor w-4 text-center"></i>
+                        Manajemen Dokter
+                    </a>
+                @endif
+                @if(Route::has('pasien.index'))
+                    <a href="{{ route('pasien.index') }}" class="{{ $baseLink }} {{ request()->routeIs('pasien.*') ? $active : $inactive }}">
+                        <i class="fas fa-bed-pulse w-4 text-center"></i>
+                        Manajemen Pasien
+                    </a>
+                @endif
+                @if(Route::has('obat.index'))
+                    <a href="{{ route('obat.index') }}" class="{{ $baseLink }} {{ request()->routeIs('obat.*') ? $active : $inactive }}">
+                        <i class="fas fa-pills w-4 text-center"></i>
+                        Manajemen Obat
+                    </a>
+                @endif
             </div>
         @endif
 
@@ -64,6 +88,14 @@
                     Dashboard Dokter
                 </a>
             </div>
+            @if(Route::has('jadwal-periksa.index'))
+                <div class="mt-2 space-y-1">
+                    <a href="{{ route('jadwal-periksa.index') }}" class="{{ $baseLink }} {{ request()->routeIs('jadwal-periksa.*') ? $active : $inactive }}">
+                        <i class="fas fa-calendar-check w-4 text-center"></i>
+                        Jadwal Periksa
+                    </a>
+                </div>
+            @endif
         @endif
     </div>
 
